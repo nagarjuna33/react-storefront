@@ -11,12 +11,15 @@ pipeline {
         }
         stage('docker image build') {
             steps {
-                sh 'docker image build -t nagarjunaduggireddy/saleor-storefrunt:DEV .'
+                sh 'docker compose build '
+                sh 'docker image tag storefront nagarjunaduggireddy/storefront:DEV .'
+                sh 'docker image tag saleor-app-checkout nagarjunaduggireddy/saleor-app-checkout:DEV .'
             }
         }
         stage('push image to registry') {
             steps {
-                sh 'docker image push nagarjunaduggireddy/saleor-storefrunt:DEV'
+                sh 'docker image push nagarjunaduggireddy/storefront:DEV'
+                 sh 'docker image push nagarjunaduggireddy/saleor-app-checkout:DEV'
             }
         }
     }
